@@ -1,8 +1,10 @@
 import React from 'react';
 import Navbar from './components/Navbar';
-import About from './sections/About'; // We already built this
+import About from './sections/About';
+import Skills from './sections/Skills';
+import Research from './sections/Research'; // <-- Import this
 
-// Temporary Placeholder Component (So we can build sections one by one)
+// Temporary Placeholder Component
 const SectionPlaceholder = ({ id, title, color }) => (
   <section id={id} className={`min-h-[50vh] flex items-center justify-center border-t border-white/5 ${color}`}>
     <div className="text-center opacity-50">
@@ -16,41 +18,25 @@ const SectionPlaceholder = ({ id, title, color }) => (
 
 function App() {
   return (
-    <div className="font-sans antialiased bg-zinc-950 text-zinc-100 selection:bg-violet-500 selection:text-white">
+    <div className="font-sans antialiased bg-zinc-950 text-zinc-100 selection:bg-green-500 selection:text-black">
       <Navbar />
       
-      <main className="pt-20"> {/* Add padding-top so navbar doesn't cover content */}
+      <main className="pt-20">
         
-        {/* 1. About Me (Done) */}
         <About />
+        <Skills /> 
+        <Research /> {/* <-- Added here */}
 
-        {/* 2. Skills (Pending) */}
-        <SectionPlaceholder id="skills" title="Technical Arsenal" color="bg-zinc-950" />
-
-        {/* 3. Research (Pending) */}
-        <SectionPlaceholder id="research" title="Research Contributions" color="bg-zinc-900/50" />
-
-        {/* 4. Projects (Pending) */}
+        {/* Pending Sections */}
         <SectionPlaceholder id="projects" title="Featured Projects" color="bg-zinc-950" />
-
-        {/* 5. Achievements (Pending) */}
         <SectionPlaceholder id="achievements" title="Achievements" color="bg-zinc-900/50" />
-
-        {/* 6. Awards (Pending) */}
         <SectionPlaceholder id="awards" title="Honors & Awards" color="bg-zinc-950" />
-
-        {/* 7. Result (Pending) */}
         <SectionPlaceholder id="result" title="Academic Results" color="bg-zinc-900/50" />
-
-        {/* 8. Extra Curricular (Pending) */}
         <SectionPlaceholder id="extra-curricular" title="Beyond Code" color="bg-zinc-950" />
-
-        {/* 9. Hall of Failure (Pending) */}
         <SectionPlaceholder id="hall-of-failure" title="Hall of Failure" color="bg-red-950/10" />
 
       </main>
 
-      {/* Footer Placeholder */}
       <footer className="py-12 text-center text-zinc-600 border-t border-white/10 mt-20">
         <p>&copy; 2025 Susmoy Biswas. Built with React & Tailwind.</p>
       </footer>
