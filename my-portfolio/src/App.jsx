@@ -3,32 +3,32 @@ import Navbar from './components/Navbar';
 import About from './sections/About';
 import Skills from './sections/Skills';
 import Research from './sections/Research';
+import Thesis from './sections/Thesis'; // <-- Import this
 import Projects from './sections/Projects';
 import Achievements from './sections/Achievements';
 import Awards from './sections/Awards';
-import Certificates from './sections/Certificates'; // <-- Import this
+import Certificates from './sections/Certificates';
 import Academic from './sections/Academic';
 import ExtraCurricular from './sections/ExtraCurricular';
 import HallOfFailure from './sections/HallOfFailure';
 
 function App() {
   return (
-    <div className="font-sans antialiased bg-zinc-950 text-zinc-100 selection:bg-cyan-500 selection:text-black">
+    <div className="font-sans antialiased bg-zinc-950 text-zinc-100 selection:bg-purple-500 selection:text-white">
       <Navbar />
       
       <main className="pt-20">
-        
         <About />
         <Skills /> 
         <Research /> 
+        <Thesis /> {/* <-- Added here */}
         <Projects />
         <Achievements />
         <Awards />
-        <Certificates /> {/* <-- Added here */}
+        <Certificates />
         <Academic />
         <ExtraCurricular />
         <HallOfFailure />
-
       </main>
 
       <footer className="py-12 text-center text-zinc-600 border-t border-white/10 mt-20 bg-zinc-950">

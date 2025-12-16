@@ -6,9 +6,11 @@ const navLinks = [
   { name: "About Me", href: "#about" },
   { name: "Skills", href: "#skills" },
   { name: "Research", href: "#research" },
+  { name: "Thesis", href: "#thesis" }, // <-- Added
   { name: "Projects", href: "#projects" },
   { name: "Achievements", href: "#achievements" },
   { name: "Awards", href: "#awards" },
+  { name: "Certificates", href: "#certificates" }, // <-- Added
   { name: "Result", href: "#result" },
   { name: "Extra Curricular", href: "#extra-curricular" },
   { name: "Hall of Failure", href: "#hall-of-failure" },
@@ -31,7 +33,7 @@ const Navbar = () => {
         scrolled ? "bg-zinc-950/80 backdrop-blur-md border-b border-white/10" : "bg-transparent"
       }`}
     >
-      {/* Banner Background Placeholder (Gradient for now) */}
+      {/* Banner Background Placeholder */}
       <div className={`absolute inset-0 -z-10 transition-opacity duration-300 ${scrolled ? 'opacity-0' : 'opacity-100'}`}>
         <div className="absolute inset-0 bg-gradient-to-b from-zinc-900/90 to-transparent" />
       </div>
@@ -42,8 +44,8 @@ const Navbar = () => {
           SB<span className="text-violet-500">.</span>
         </a>
 
-        {/* Desktop Navigation (Scrollable if needed) */}
-        <nav className="hidden xl:flex items-center gap-1 overflow-x-auto no-scrollbar mask-gradient px-4">
+        {/* Desktop Navigation (Scrollable) */}
+        <nav className="hidden xl:flex items-center gap-1 overflow-x-auto no-scrollbar mask-gradient px-4 max-w-4xl">
           {navLinks.map((link) => (
             <a
               key={link.name}
