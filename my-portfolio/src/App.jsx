@@ -6,24 +6,14 @@ import Research from './sections/Research';
 import Projects from './sections/Projects';
 import Achievements from './sections/Achievements';
 import Awards from './sections/Awards';
+import Certificates from './sections/Certificates'; // <-- Import this
 import Academic from './sections/Academic';
-import ExtraCurricular from './sections/ExtraCurricular'; // <-- Import this
-
-// Temporary Placeholder
-const SectionPlaceholder = ({ id, title, color }) => (
-  <section id={id} className={`min-h-[50vh] flex items-center justify-center border-t border-white/5 ${color}`}>
-    <div className="text-center opacity-50">
-      <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-white/20">
-        {title}
-      </h2>
-      <p className="text-zinc-500 mt-2 font-mono text-sm">Waiting for instructions...</p>
-    </div>
-  </section>
-);
+import ExtraCurricular from './sections/ExtraCurricular';
+import HallOfFailure from './sections/HallOfFailure';
 
 function App() {
   return (
-    <div className="font-sans antialiased bg-zinc-950 text-zinc-100 selection:bg-pink-500 selection:text-white">
+    <div className="font-sans antialiased bg-zinc-950 text-zinc-100 selection:bg-cyan-500 selection:text-black">
       <Navbar />
       
       <main className="pt-20">
@@ -34,16 +24,19 @@ function App() {
         <Projects />
         <Achievements />
         <Awards />
+        <Certificates /> {/* <-- Added here */}
         <Academic />
-        <ExtraCurricular /> {/* <-- Added here */}
-
-        {/* Pending Sections */}
-        <SectionPlaceholder id="hall-of-failure" title="Hall of Failure" color="bg-red-950/10" />
+        <ExtraCurricular />
+        <HallOfFailure />
 
       </main>
 
-      <footer className="py-12 text-center text-zinc-600 border-t border-white/10 mt-20">
-        <p>&copy; 2025 Susmoy Biswas. Built with React & Tailwind.</p>
+      <footer className="py-12 text-center text-zinc-600 border-t border-white/10 mt-20 bg-zinc-950">
+        <div className="container mx-auto px-6">
+           <h2 className="text-2xl font-bold text-white mb-2">Susmoy Biswas</h2>
+           <p className="mb-6 text-sm">AI Researcher • System Builder • Resilience Learner</p>
+           <p className="text-xs opacity-50">&copy; 2025 Susmoy Biswas. Built with React & Tailwind.</p>
+        </div>
       </footer>
     </div>
   );
