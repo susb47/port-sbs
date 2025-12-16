@@ -4,7 +4,8 @@ import About from './sections/About';
 import Skills from './sections/Skills';
 import Research from './sections/Research';
 import Projects from './sections/Projects';
-import Achievements from './sections/Achievements'; // <-- Import this
+import Achievements from './sections/Achievements';
+import Awards from './sections/Awards'; // <-- Import this
 
 // Temporary Placeholder Component
 const SectionPlaceholder = ({ id, title, color }) => (
@@ -29,10 +30,10 @@ function App() {
         <Skills /> 
         <Research /> 
         <Projects />
-        <Achievements /> {/* <-- Added here */}
+        <Achievements />
+        <Awards /> {/* <-- Added here */}
 
         {/* Pending Sections */}
-        <SectionPlaceholder id="awards" title="Honors & Awards" color="bg-zinc-950" />
         <SectionPlaceholder id="result" title="Academic Results" color="bg-zinc-900/50" />
         <SectionPlaceholder id="extra-curricular" title="Beyond Code" color="bg-zinc-950" />
         <SectionPlaceholder id="hall-of-failure" title="Hall of Failure" color="bg-red-950/10" />
