@@ -5,9 +5,11 @@ import Skills from './sections/Skills';
 import Research from './sections/Research';
 import Projects from './sections/Projects';
 import Achievements from './sections/Achievements';
-import Awards from './sections/Awards'; // <-- Import this
+import Awards from './sections/Awards';
+import Academic from './sections/Academic';
+import ExtraCurricular from './sections/ExtraCurricular'; // <-- Import this
 
-// Temporary Placeholder Component
+// Temporary Placeholder
 const SectionPlaceholder = ({ id, title, color }) => (
   <section id={id} className={`min-h-[50vh] flex items-center justify-center border-t border-white/5 ${color}`}>
     <div className="text-center opacity-50">
@@ -21,7 +23,7 @@ const SectionPlaceholder = ({ id, title, color }) => (
 
 function App() {
   return (
-    <div className="font-sans antialiased bg-zinc-950 text-zinc-100 selection:bg-green-500 selection:text-black">
+    <div className="font-sans antialiased bg-zinc-950 text-zinc-100 selection:bg-pink-500 selection:text-white">
       <Navbar />
       
       <main className="pt-20">
@@ -31,11 +33,11 @@ function App() {
         <Research /> 
         <Projects />
         <Achievements />
-        <Awards /> {/* <-- Added here */}
+        <Awards />
+        <Academic />
+        <ExtraCurricular /> {/* <-- Added here */}
 
         {/* Pending Sections */}
-        <SectionPlaceholder id="result" title="Academic Results" color="bg-zinc-900/50" />
-        <SectionPlaceholder id="extra-curricular" title="Beyond Code" color="bg-zinc-950" />
         <SectionPlaceholder id="hall-of-failure" title="Hall of Failure" color="bg-red-950/10" />
 
       </main>
