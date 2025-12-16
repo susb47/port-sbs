@@ -35,14 +35,14 @@ const ExtraCurricular = () => {
           </p>
         </div>
 
-        {/* MASONRY GRID LAYOUT */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[300px]">
+        {/* GRID LAYOUT - 16:9 Tiles */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-          {/* 1. MENTAL HEALTH SEMINAR (Carousel Tile) - Spans 2 Columns */}
+          {/* 1. MENTAL HEALTH SEMINAR (Carousel Tile) - 16:9 */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="md:col-span-2 relative group rounded-3xl overflow-hidden border border-zinc-800"
+            className="relative group rounded-3xl overflow-hidden border border-zinc-800 aspect-video"
           >
             {/* Carousel Images */}
             <div className="absolute inset-0 w-full h-full">
@@ -62,7 +62,7 @@ const ExtraCurricular = () => {
             </div>
 
             {/* Content Overlay */}
-            <div className="absolute bottom-0 left-0 p-8 z-10">
+            <div className="absolute bottom-0 left-0 p-6 z-10">
               <div className="flex items-center gap-2 mb-2">
                  <span className="px-3 py-1 bg-pink-500/20 text-pink-400 text-xs font-bold rounded-full border border-pink-500/30">
                     Organizer
@@ -71,15 +71,14 @@ const ExtraCurricular = () => {
                     <Calendar size={12} /> Fall 2022
                  </span>
               </div>
-              <h3 className="text-2xl font-bold text-white mb-1">Mental Health Seminar</h3>
-              <p className="text-zinc-300 text-sm">
-                Organized a session for the "Art of Living" course, impacting over 
-                <span className="text-white font-bold"> 80+ attendees</span>.
+              <h3 className="text-xl font-bold text-white mb-1">Mental Health Seminar</h3>
+              <p className="text-zinc-300 text-xs">
+                Organized a session for "Art of Living", impacting <span className="text-white font-bold">80+ attendees</span>.
               </p>
             </div>
 
             {/* Carousel Indicators */}
-            <div className="absolute top-6 right-6 flex gap-2">
+            <div className="absolute top-4 right-4 flex gap-2">
               {seminarImages.map((_, idx) => (
                 <div 
                   key={idx}
@@ -91,12 +90,12 @@ const ExtraCurricular = () => {
             </div>
           </motion.div>
 
-          {/* 2. PARENTS DAY (Static Image Tile) */}
+          {/* 2. PARENTS DAY (Static Image Tile) - 16:9 */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="relative group rounded-3xl overflow-hidden border border-zinc-800"
+            className="relative group rounded-3xl overflow-hidden border border-zinc-800 aspect-video"
           >
             <img 
               src={parentsImg} 
@@ -114,52 +113,51 @@ const ExtraCurricular = () => {
             </div>
           </motion.div>
 
-          {/* 3. FLOOD FUNDRAISING (Graphic Tile) */}
+          {/* 3. FLOOD FUNDRAISING (Graphic Tile) - 16:9 */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 flex flex-col justify-between group hover:border-pink-500/30 transition-colors"
+            className="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 flex flex-col justify-between group hover:border-pink-500/30 transition-colors aspect-video"
           >
-            <div className="p-4 bg-zinc-950 w-fit rounded-2xl text-pink-500 mb-4 group-hover:scale-110 transition-transform">
-              <HandHeart size={32} />
+            <div className="p-3 bg-zinc-950 w-fit rounded-2xl text-pink-500 mb-2 group-hover:scale-110 transition-transform">
+              <HandHeart size={24} />
             </div>
             <div>
-              <h3 className="text-2xl font-bold text-white mb-2">Flood Relief 2024</h3>
-              <p className="text-zinc-400 text-sm leading-relaxed">
-                Actively coordinated fundraising efforts to support victims of the 2024 floods. Mobilized resources and community support for immediate aid.
+              <h3 className="text-lg font-bold text-white mb-2">Flood Relief 2024</h3>
+              <p className="text-zinc-400 text-xs leading-relaxed line-clamp-3">
+                Coordinated fundraising to support victims of the 2024 floods. Mobilized resources for immediate aid.
               </p>
             </div>
-            <div className="mt-6 pt-6 border-t border-zinc-800 flex items-center gap-2 text-xs text-zinc-500">
+            <div className="mt-auto pt-4 border-t border-zinc-800 flex items-center gap-2 text-xs text-zinc-500">
                <Users size={14} /> Community Impact
             </div>
           </motion.div>
 
-          {/* 4. CONTENT CREATION (Video Placeholder Tile) - Spans 2 Columns */}
+          {/* 4. CONTENT CREATION (Video Placeholder Tile) - 16:9 */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="md:col-span-2 bg-zinc-900 border border-zinc-800 rounded-3xl p-1 relative overflow-hidden group"
+            className="relative group rounded-3xl overflow-hidden border border-zinc-800 aspect-video"
           >
-            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1536240478700-b869070f9279?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-20 group-hover:opacity-30 transition-opacity" />
+            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1536240478700-b869070f9279?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center transition-transform duration-700 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/50 to-transparent" />
             
-            <div className="relative h-full flex flex-col md:flex-row items-center p-8 gap-8">
-               <div className="flex-1">
-                  <span className="flex items-center gap-2 text-pink-400 text-xs font-bold uppercase tracking-wider mb-3">
+            <div className="absolute bottom-0 left-0 p-6 z-10 w-full">
+               <div className="flex items-center justify-between mb-2">
+                  <span className="flex items-center gap-2 text-pink-400 text-xs font-bold uppercase tracking-wider">
                     <Video size={14} /> Content Creation
                   </span>
-                  <h3 className="text-3xl font-bold text-white mb-2">"Parental Love"</h3>
-                  <p className="text-zinc-400 text-sm mb-4">
-                    A cinematic storytelling piece for the Art of Living course exploring the depth of parental bonds.
-                  </p>
-                  <p className="text-xs text-zinc-500">© Susmoy Biswas • Releasing Soon</p>
+                  <div className="w-8 h-8 rounded-full bg-pink-600 flex items-center justify-center text-white shadow-[0_0_15px_rgba(219,39,119,0.4)] group-hover:scale-110 transition-transform">
+                    <PlayCircle size={16} fill="currentColor" />
+                  </div>
                </div>
-               
-               {/* Play Button Visual */}
-               <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-pink-600 flex items-center justify-center text-white shadow-[0_0_30px_rgba(219,39,119,0.4)] group-hover:scale-110 transition-transform cursor-not-allowed">
-                  <PlayCircle size={32} fill="currentColor" />
-               </div>
+               <h3 className="text-lg font-bold text-white mb-1">"Parental Love"</h3>
+               <p className="text-zinc-300 text-xs line-clamp-1">
+                 Cinematic storytelling for Art of Living exploring parental bonds.
+               </p>
+               <p className="text-[10px] text-zinc-500 mt-1">© Susmoy Biswas • Releasing Soon</p>
             </div>
           </motion.div>
 
