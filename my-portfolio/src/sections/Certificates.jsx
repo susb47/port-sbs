@@ -8,7 +8,7 @@ import certDatathon from "../assets/cert-datathon.jpg";
 import certEdge from "../assets/cert-edge.jpg";
 import certNlp from "../assets/cert-nlp.jpg";
 import certPatent from "../assets/cert-patent.jpg";
-import certNasa from "../assets/cert-nasa.jpeg"; // <-- Added NASA Image Import
+import certNasa from "../assets/cert-nasa.jpeg"; 
 
 const certificates = [
   {
@@ -34,7 +34,7 @@ const certificates = [
     image: certEdge,
   },
   {
-    id: 6, // <-- Added NASA Certificate
+    id: 6, 
     title: "NASA Space Apps Challenge",
     issuer: "NASA & Bangladesh Regional",
     desc: "Participation certificate for building an 'Astroid Impact Simulator' in the 2025 hackathon.",
@@ -43,7 +43,7 @@ const certificates = [
   {
     id: 4,
     title: "NLP Seminar Participation",
-    issuer: "DIU ML and NLP Lab",
+    issuer: "Research Club",
     desc: "Active participation in advanced Natural Language Processing workshops.",
     image: certNlp,
   },
@@ -60,7 +60,8 @@ const Certificates = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   return (
-    <section id="certificates" className="py-24 bg-zinc-950 relative border-t border-zinc-900">
+    // ADDED: overflow-hidden to prevent the background glow from causing horizontal scroll
+    <section id="certificates" className="py-24 bg-zinc-950 relative border-t border-zinc-900 overflow-hidden">
       {/* Background Glow */}
       <div className="absolute top-1/3 right-0 w-[500px] h-[500px] bg-cyan-500/5 rounded-full blur-[120px] pointer-events-none" />
 

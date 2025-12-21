@@ -3,7 +3,7 @@ import Navbar from './components/Navbar';
 import About from './sections/About';
 import Skills from './sections/Skills';
 import Research from './sections/Research';
-import Thesis from './sections/Thesis'; // <-- Import this
+import Thesis from './sections/Thesis';
 import Projects from './sections/Projects';
 import Achievements from './sections/Achievements';
 import Awards from './sections/Awards';
@@ -14,14 +14,15 @@ import HallOfFailure from './sections/HallOfFailure';
 
 function App() {
   return (
-    <div className="font-sans antialiased bg-zinc-950 text-zinc-100 selection:bg-purple-500 selection:text-white">
+    // ADDED: overflow-x-hidden w-full to prevent gray bars
+    <div className="font-sans antialiased bg-zinc-950 text-zinc-100 selection:bg-purple-500 selection:text-white overflow-x-hidden w-full">
       <Navbar />
       
       <main className="pt-20">
         <About />
         <Skills /> 
         <Research /> 
-        <Thesis /> {/* <-- Added here */}
+        <Thesis />
         <Projects />
         <Achievements />
         <Awards />

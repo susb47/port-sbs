@@ -5,7 +5,8 @@ import awardImg from "../assets/hero-award.jpg";
 
 const Awards = () => {
   return (
-    <section id="awards" className="py-24 bg-zinc-950 relative">
+    // ADDED: overflow-hidden here to clip the yellow background glow
+    <section id="awards" className="py-24 bg-zinc-950 relative overflow-hidden">
       <div className="container mx-auto px-6">
         
         {/* Header */}
