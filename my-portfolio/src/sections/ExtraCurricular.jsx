@@ -32,7 +32,7 @@ const Impact = () => {
             viewport={{ once: true }}
             className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-fuchsia-50 text-fuchsia-800 text-xs font-bold uppercase tracking-widest border border-fuchsia-100 mb-4"
           >
-            <Sparkles size={14} /> Citizenship
+            <Sparkles size={14} /> ExtraCurricular
           </motion.div>
           <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 flex items-center justify-center md:justify-start gap-3">
             <Heart className="text-fuchsia-800 fill-fuchsia-800/10" /> 
