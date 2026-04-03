@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FileBadge, Eye, X, Award } from "lucide-react";
+import { FileBadge, Eye, X, Award, Search, CheckCircle2 } from "lucide-react";
 
-// Import Images
+// Import Images (Keeping your existing imports)
 import certHero from "../assets/cert-hero.jpg";
 import certDatathon from "../assets/cert-datathon.jpg";
 import certEdge from "../assets/cert-edge.jpg";
@@ -25,6 +25,7 @@ const certificates = [
     issuer: "DIU CPC",
     desc: "Podium position in the 2024 Data Science competitive programming datathon.",
     image: certDatathon,
+    featured: true,
   },
   {
     id: 3,
@@ -60,113 +61,122 @@ const Certificates = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   return (
-    // ADDED: overflow-hidden to prevent the background glow from causing horizontal scroll
-    <section id="certificates" className="py-24 bg-zinc-950 relative border-t border-zinc-900 overflow-hidden">
-      {/* Background Glow */}
-      <div className="absolute top-1/3 right-0 w-[500px] h-[500px] bg-cyan-500/5 rounded-full blur-[120px] pointer-events-none" />
+    <section id="certificates" className="py-24 bg-white relative border-t border-indigo-50 overflow-hidden">
+      
+      {/* Soft Background Accents */}
+      <div className="absolute top-1/4 -right-24 w-96 h-96 bg-fuchsia-50/50 rounded-full blur-[100px] pointer-events-none -z-10" />
+      <div className="absolute bottom-1/4 -left-24 w-96 h-96 bg-indigo-50/50 rounded-full blur-[100px] pointer-events-none -z-10" />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6 max-w-6xl relative z-10">
         
         {/* Header */}
-        <div className="mb-16">
-          <h2 className="text-4xl font-bold text-white mb-4 flex items-center gap-3">
-            <FileBadge className="text-cyan-400" /> 
-            Certifications & <span className="text-cyan-400">Credentials</span>
-          </h2>
-          <p className="text-zinc-400 max-w-2xl text-lg">
-            A verified gallery of awards, intensive training, and competitive achievements.
+        <div className="mb-16 text-center md:text-left">
+          <div className="flex items-center gap-3 mb-4 justify-center md:justify-start">
+            <div className="p-2 bg-fuchsia-50 text-fuchsia-800 rounded-lg">
+                <FileBadge size={28} />
+            </div>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900">
+              Certifications & <span className="text-fuchsia-800">Credentials</span>
+            </h2>
+          </div>
+          <p className="text-slate-500 max-w-2xl text-lg font-medium">
+            A verified gallery of awards, professional training, and competitive academic achievements.
           </p>
         </div>
 
         {/* GALLERY GRID */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {certificates.map((cert) => (
+          {certificates.map((cert, index) => (
             <motion.div
               key={cert.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              whileHover={{ y: -5 }}
-              className={`group flex flex-col bg-zinc-900/50 backdrop-blur-sm border rounded-2xl overflow-hidden transition-all duration-300 ${cert.featured ? 'border-yellow-500/50 shadow-[0_0_20px_rgba(234,179,8,0.1)]' : 'border-zinc-800/80 hover:border-cyan-500/50 hover:shadow-[0_0_20px_rgba(6,182,212,0.1)]'}`}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              whileHover={{ y: -8 }}
+              className={`group flex flex-col bg-white border rounded-2xl overflow-hidden transition-all duration-300 ${
+                cert.featured 
+                ? 'border-fuchsia-200 shadow-md shadow-fuchsia-100/20' 
+                : 'border-slate-100 hover:border-indigo-200 hover:shadow-lg hover:shadow-indigo-100/30'
+              }`}
             >
               {/* Image Container */}
               <div 
-                className="relative aspect-[4/3] overflow-hidden cursor-pointer bg-zinc-950"
+                className="relative aspect-[4/3] overflow-hidden cursor-pointer bg-slate-50"
                 onClick={() => setSelectedImage(cert.image)}
               >
                 <img 
                   src={cert.image} 
                   alt={cert.title} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out opacity-90 group-hover:opacity-100"
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
                 
                 {/* Featured Badge */}
                 {cert.featured && (
-                  <div className="absolute top-3 right-3 bg-yellow-500 text-black text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1 z-20">
-                    <Award size={12} /> Premier Honor
+                  <div className="absolute top-4 right-4 bg-fuchsia-800 text-white text-[10px] font-black px-3 py-1.5 rounded-lg flex items-center gap-1.5 z-20 shadow-lg shadow-fuchsia-900/20 uppercase tracking-widest">
+                    <Award size={14} /> Premier
                   </div>
                 )}
 
-                {/* Overlay on Hover */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6 z-10">
-                  <div className="bg-cyan-500/20 backdrop-blur-md text-cyan-400 border border-cyan-500/30 px-4 py-2 rounded-full flex items-center gap-2 font-bold text-sm">
-                    <Eye size={16} /> View Certificate
-                  </div>
+                {/* Hover Overlay */}
+                <div className="absolute inset-0 bg-fuchsia-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10 backdrop-blur-[2px]">
+                   <div className="bg-white/90 backdrop-blur-md text-fuchsia-800 p-4 rounded-full shadow-xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                      <Search size={24} strokeWidth={2.5} />
+                   </div>
                 </div>
               </div>
 
-              {/* Content */}
+              {/* Content Area */}
               <div className="p-6 flex flex-col flex-grow relative">
-                 {/* Decorative Top Border */}
-                 <div className={`absolute top-0 left-6 right-6 h-px bg-gradient-to-r ${cert.featured ? 'from-yellow-500/50 to-transparent' : 'from-cyan-500/50 to-transparent'}`} />
-
-                <h3 className={`text-xl font-bold mb-2 transition-colors ${cert.featured ? 'text-white group-hover:text-yellow-400' : 'text-white group-hover:text-cyan-400'}`}>
-                  {cert.title}
-                </h3>
-                
-                <div className="flex items-center gap-2 mb-4">
-                   <span className={`h-1.5 w-1.5 rounded-full ${cert.featured ? 'bg-yellow-500' : 'bg-cyan-500'}`} />
-                   <p className={`text-xs font-bold uppercase tracking-wider ${cert.featured ? 'text-yellow-500' : 'text-cyan-500'}`}>
+                <div className="flex items-center gap-2 mb-3">
+                   <CheckCircle2 size={14} className={cert.featured ? 'text-fuchsia-600' : 'text-indigo-500'} />
+                   <p className={`text-[10px] font-black uppercase tracking-widest ${cert.featured ? 'text-fuchsia-800' : 'text-slate-400'}`}>
                      {cert.issuer}
                    </p>
                 </div>
+
+                <h3 className="text-lg font-bold text-slate-800 mb-2 leading-tight group-hover:text-fuchsia-800 transition-colors">
+                  {cert.title}
+                </h3>
                 
-                <p className="text-sm text-zinc-400 leading-relaxed line-clamp-3 flex-grow">
+                <p className="text-xs text-slate-500 leading-relaxed line-clamp-3">
                   {cert.desc}
                 </p>
               </div>
             </motion.div>
           ))}
         </div>
-
       </div>
 
-      {/* LIGHTBOX MODAL */}
+      {/* LIGHTBOX MODAL (Light Themed) */}
       <AnimatePresence>
         {selectedImage && (
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md flex items-center justify-center p-4 md:p-12 cursor-zoom-out"
+            className="fixed inset-0 z-[100] bg-slate-900/90 backdrop-blur-sm flex items-center justify-center p-4 md:p-12 cursor-zoom-out"
             onClick={() => setSelectedImage(null)}
           >
             {/* Close Button */}
-            <button className="absolute top-6 right-6 bg-zinc-900/50 text-zinc-400 hover:text-white hover:bg-red-500/20 p-2 rounded-full transition-all z-20">
-              <X size={24} />
+            <button className="absolute top-8 right-8 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full transition-all z-20 border border-white/20">
+              <X size={28} />
             </button>
             
-            {/* Image */}
-            <motion.img 
+            {/* Image Frame */}
+            <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              src={selectedImage} 
-              alt="Certificate Full View" 
-              className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl shadow-cyan-500/10 border border-white/10 cursor-default" 
-              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking the image itself
-            />
+              className="relative max-w-5xl w-full flex items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img 
+                src={selectedImage} 
+                alt="Certificate Full View" 
+                className="max-w-full max-h-[85vh] object-contain rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] border-4 border-white/10" 
+              />
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

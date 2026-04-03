@@ -14,11 +14,12 @@ import HallOfFailure from './sections/HallOfFailure';
 
 function App() {
   return (
-    // ADDED: overflow-x-hidden w-full to prevent gray bars
-    <div className="font-sans antialiased bg-zinc-950 text-zinc-100 selection:bg-purple-500 selection:text-white overflow-x-hidden w-full">
+    // NEW: Clean white background, dark slate text, dark magenta selection highlight
+    <div className="font-sans antialiased bg-white text-slate-800 selection:bg-fuchsia-800 selection:text-white overflow-x-hidden w-full">
       <Navbar />
       
       <main className="pt-20">
+        {/* Note: We will need to update the colors inside these individual files next! */}
         <About />
         <Skills /> 
         <Research /> 
@@ -32,11 +33,12 @@ function App() {
         <HallOfFailure />
       </main>
 
-      <footer className="py-12 text-center text-zinc-600 border-t border-white/10 mt-20 bg-zinc-950">
+      {/* NEW: Minimalist Footer with Periwinkle border */}
+      <footer className="py-12 text-center bg-slate-50 border-t border-indigo-100 mt-20">
         <div className="container mx-auto px-6">
-           <h2 className="text-2xl font-bold text-white mb-2">Susmoy Biswas</h2>
-           <p className="mb-6 text-sm">AI Researcher • System Builder • Resilience Learner</p>
-           <p className="text-xs opacity-50">&copy; 2025 Susmoy Biswas. Built with React & Tailwind.</p>
+           <h2 className="text-2xl font-bold text-slate-900 mb-2">Susmoy Biswas</h2>
+           <p className="mb-6 text-sm text-slate-600">AI Researcher • System Builder • Resilience Learner</p>
+           <p className="text-xs text-slate-400">&copy; {new Date().getFullYear()} Susmoy Biswas. Built with React & Tailwind.</p>
         </div>
       </footer>
     </div>

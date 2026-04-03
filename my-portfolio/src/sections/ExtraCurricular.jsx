@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart, Users, Video, HandHeart, Calendar, PlayCircle } from "lucide-react";
+import { Heart, Users, Video, HandHeart, Calendar, PlayCircle, Sparkles } from "lucide-react";
 
 // Import Images
 import seminar1 from "../assets/seminar1.jpg";
 import seminar2 from "../assets/seminar2.jpg";
 import parentsImg from "../assets/parents.jpg";
 
-const ExtraCurricular = () => {
+const Impact = () => {
   // Carousel State
   const [currentSlide, setCurrentSlide] = useState(0);
   const seminarImages = [seminar1, seminar2];
@@ -16,148 +16,157 @@ const ExtraCurricular = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % seminarImages.length);
-    }, 4000); // Change image every 4 seconds
+    }, 4000); 
     return () => clearInterval(timer);
-  }, []);
+  }, [seminarImages.length]);
 
   return (
-    <section id="extra-curricular" className="py-24 bg-zinc-950 relative">
-      <div className="container mx-auto px-6">
+    <section id="impact" className="py-24 bg-white relative border-b border-indigo-50">
+      <div className="container mx-auto px-6 max-w-6xl">
         
         {/* Header */}
-        <div className="mb-16">
-          <h2 className="text-4xl font-bold text-white mb-4 flex items-center gap-3">
-            <Heart className="text-pink-500 fill-pink-500" /> 
-            Beyond <span className="text-pink-500">Code</span>
+        <div className="mb-16 text-center md:text-left">
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-fuchsia-50 text-fuchsia-800 text-xs font-bold uppercase tracking-widest border border-fuchsia-100 mb-4"
+          >
+            <Sparkles size={14} /> Citizenship
+          </motion.div>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 flex items-center justify-center md:justify-start gap-3">
+            <Heart className="text-fuchsia-800 fill-fuchsia-800/10" /> 
+            Social <span className="text-fuchsia-800">Impact</span>
           </h2>
-          <p className="text-zinc-400 max-w-2xl">
-            Leadership, volunteering, and creative pursuits.
+          <p className="text-slate-500 max-w-2xl text-lg font-medium">
+            Leadership, humanitarian volunteering, and creative storytelling beyond technical research.
           </p>
         </div>
 
-        {/* GRID LAYOUT - 16:9 Tiles */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* GRID LAYOUT */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-          {/* 1. MENTAL HEALTH SEMINAR (Carousel Tile) - 16:9 */}
+          {/* 1. MENTAL HEALTH SEMINAR (Carousel) */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="relative group rounded-3xl overflow-hidden border border-zinc-800 aspect-video"
+            viewport={{ once: true }}
+            className="relative group rounded-[2rem] overflow-hidden border border-slate-100 aspect-video shadow-sm hover:shadow-xl transition-all duration-500"
           >
-            {/* Carousel Images */}
             <div className="absolute inset-0 w-full h-full">
               <AnimatePresence mode="wait">
                 <motion.img 
                   key={currentSlide}
                   src={seminarImages[currentSlide]}
                   alt="Mental Health Seminar"
-                  initial={{ opacity: 0, scale: 1.1 }}
+                  initial={{ opacity: 0, scale: 1.05 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 1 }}
                   className="w-full h-full object-cover"
                 />
               </AnimatePresence>
-              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent" />
             </div>
 
-            {/* Content Overlay */}
             <div className="absolute bottom-0 left-0 p-6 z-10">
               <div className="flex items-center gap-2 mb-2">
-                 <span className="px-3 py-1 bg-pink-500/20 text-pink-400 text-xs font-bold rounded-full border border-pink-500/30">
+                 <span className="px-2.5 py-0.5 bg-fuchsia-600 text-white text-[10px] font-black rounded uppercase tracking-tighter shadow-lg shadow-fuchsia-900/20">
                     Organizer
                  </span>
-                 <span className="flex items-center gap-1 text-zinc-300 text-xs font-bold">
+                 <span className="flex items-center gap-1 text-slate-300 text-[10px] font-bold uppercase tracking-widest">
                     <Calendar size={12} /> Fall 2022
                  </span>
               </div>
               <h3 className="text-xl font-bold text-white mb-1">Mental Health Seminar</h3>
-              <p className="text-zinc-300 text-xs">
-                Organized a session for "Art of Living", impacting <span className="text-white font-bold">80+ attendees</span>.
+              <p className="text-slate-300 text-xs leading-tight">
+                Organized a high-impact session for "Art of Living" course, impacting <span className="text-white font-bold">80+ attendees</span>.
               </p>
             </div>
 
-            {/* Carousel Indicators */}
-            <div className="absolute top-4 right-4 flex gap-2">
+            <div className="absolute top-4 right-4 flex gap-1.5">
               {seminarImages.map((_, idx) => (
                 <div 
                   key={idx}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    idx === currentSlide ? "w-6 bg-pink-500" : "w-2 bg-white/30"
+                  className={`h-1 rounded-full transition-all duration-300 ${
+                    idx === currentSlide ? "w-6 bg-white" : "w-1.5 bg-white/40"
                   }`}
                 />
               ))}
             </div>
           </motion.div>
 
-          {/* 2. PARENTS DAY (Static Image Tile) - 16:9 */}
+          {/* 2. PARENTS DAY (Static) */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="relative group rounded-3xl overflow-hidden border border-zinc-800 aspect-video"
+            className="relative group rounded-[2rem] overflow-hidden border border-slate-100 aspect-video shadow-sm hover:shadow-xl transition-all duration-500"
           >
             <img 
               src={parentsImg} 
               alt="Parents Day Volunteering" 
               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-transparent" />
             
             <div className="absolute bottom-0 left-0 p-6 z-10">
-              <span className="block text-pink-400 text-xs font-bold uppercase tracking-wider mb-1">
-                Volunteer
+              <span className="block text-fuchsia-400 text-[10px] font-black uppercase tracking-widest mb-1">
+                Volunteer Service
               </span>
               <h3 className="text-xl font-bold text-white">Parents Day Program</h3>
-              <p className="text-zinc-400 text-xs mt-1">Art of Living Course • Fall 2022</p>
+              <p className="text-slate-300 text-xs font-medium">Art of Living Course • Fall 2022</p>
             </div>
           </motion.div>
 
-          {/* 3. FLOOD FUNDRAISING (Graphic Tile) - 16:9 */}
+          {/* 3. FLOOD RELIEF (Card style) */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 flex flex-col justify-between group hover:border-pink-500/30 transition-colors aspect-video"
+            className="bg-slate-50 border border-slate-100 rounded-[2rem] p-6 flex flex-col justify-between group hover:border-fuchsia-200 transition-all aspect-video shadow-sm"
           >
-            <div className="p-3 bg-zinc-950 w-fit rounded-2xl text-pink-500 mb-2 group-hover:scale-110 transition-transform">
+            <div className="p-3 bg-white w-fit rounded-2xl text-fuchsia-800 mb-2 shadow-sm group-hover:scale-110 transition-transform">
               <HandHeart size={24} />
             </div>
             <div>
-              <h3 className="text-lg font-bold text-white mb-2">Flood Relief 2024</h3>
-              <p className="text-zinc-400 text-xs leading-relaxed line-clamp-3">
-                Coordinated fundraising to support victims of the 2024 floods. Mobilized resources for immediate aid.
+              <h3 className="text-lg font-bold text-slate-800 mb-2">Flood Relief 2024</h3>
+              <p className="text-slate-500 text-xs leading-relaxed line-clamp-3">
+                Coordinated essential fundraising and logistics to support victims of the 2024 floods. Mobilized resources for immediate community aid.
               </p>
             </div>
-            <div className="mt-auto pt-4 border-t border-zinc-800 flex items-center gap-2 text-xs text-zinc-500">
-               <Users size={14} /> Community Impact
+            <div className="mt-auto pt-4 border-t border-slate-200 flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+               <Users size={14} /> Community Outreach
             </div>
           </motion.div>
 
-          {/* 4. CONTENT CREATION (Video Placeholder Tile) - 16:9 */}
+          {/* 4. CONTENT CREATION (Storytelling) */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="relative group rounded-3xl overflow-hidden border border-zinc-800 aspect-video"
+            className="relative group rounded-[2rem] overflow-hidden border border-slate-100 aspect-video shadow-sm hover:shadow-xl transition-all duration-500 lg:col-span-1"
           >
             <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1536240478700-b869070f9279?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center transition-transform duration-700 group-hover:scale-105" />
-            <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/50 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent" />
             
             <div className="absolute bottom-0 left-0 p-6 z-10 w-full">
                <div className="flex items-center justify-between mb-2">
-                  <span className="flex items-center gap-2 text-pink-400 text-xs font-bold uppercase tracking-wider">
-                    <Video size={14} /> Content Creation
+                  <span className="flex items-center gap-2 text-fuchsia-400 text-[10px] font-black uppercase tracking-widest">
+                    <Video size={14} /> Creative Storytelling
                   </span>
-                  <div className="w-8 h-8 rounded-full bg-pink-600 flex items-center justify-center text-white shadow-[0_0_15px_rgba(219,39,119,0.4)] group-hover:scale-110 transition-transform">
-                    <PlayCircle size={16} fill="currentColor" />
+                  <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white group-hover:scale-110 transition-transform border border-white/30">
+                    <PlayCircle size={18} />
                   </div>
                </div>
                <h3 className="text-lg font-bold text-white mb-1">"Parental Love"</h3>
-               <p className="text-zinc-300 text-xs line-clamp-1">
-                 Cinematic storytelling for Art of Living exploring parental bonds.
+               <p className="text-slate-300 text-xs line-clamp-1">
+                 Cinematic exploration of parental bonds produced for Art of Living.
                </p>
-               <p className="text-[10px] text-zinc-500 mt-1">© Susmoy Biswas • Releasing Soon</p>
+               <p className="text-[10px] text-slate-500 mt-1 uppercase font-bold tracking-tighter italic">Releasing Soon</p>
             </div>
           </motion.div>
 
@@ -167,4 +176,4 @@ const ExtraCurricular = () => {
   );
 };
 
-export default ExtraCurricular;
+export default Impact;
