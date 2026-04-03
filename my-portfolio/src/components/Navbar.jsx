@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Download, Github, Linkedin, Menu, X, ChevronDown, Brain } from "lucide-react"; // Swapped Zap for Brain
+import { Download, Github, Linkedin, Menu, X, ChevronDown, Brain } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import resumeFile from "../assets/resume.pdf";
 
@@ -51,6 +51,12 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "unset";
+  }, [isOpen]);
+
   return (
     <header 
       className={`fixed top-0 w-full z-[100] transition-all duration-300 ${
@@ -60,7 +66,7 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-6 max-w-7xl flex items-center justify-between">
         
-        {/* NEW LOGO: Brain Icon for AI Researcher */}
+        {/* Logo */}
         <a href="#" className="flex items-center gap-2 group z-[110]" style={{ outline: "none", textDecoration: "none" }}>
           <div className="w-9 h-9 bg-slate-900 rounded-xl flex items-center justify-center text-white group-hover:bg-fuchsia-800 transition-colors shadow-sm">
             <Brain size={18} fill="none" strokeWidth={2.5} />
@@ -70,10 +76,15 @@ const Navbar = () => {
           </span>
         </a>
 
-        {/* Desktop Nav */}
+        {/* DESKTOP NAV (Dropdowns Restored Here!) */}
         <nav className="hidden xl:flex items-center gap-8">
           {navStructure.map((item, index) => (
-            <div key={item.title} className="relative" onMouseEnter={() => setActiveDropdown(index)} onMouseLeave={() => setActiveDropdown(null)}>
+            <div 
+              key={item.title} 
+              className="relative" 
+              onMouseEnter={() => setActiveDropdown(index)} 
+              onMouseLeave={() => setActiveDropdown(null)}
+            >
               {item.href ? (
                 <a href={item.href} className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-fuchsia-800 py-4 transition-colors">
                   {item.title}
@@ -81,9 +92,33 @@ const Navbar = () => {
               ) : (
                 <div className="flex items-center gap-1 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 cursor-pointer hover:text-fuchsia-800 py-4 group transition-colors">
                   {item.title}
-                  <ChevronDown size={12} className={activeDropdown === index ? "rotate-180 text-fuchsia-800" : ""} />
+                  <ChevronDown size={12} className={`transition-transform duration-300 ${activeDropdown === index ? "rotate-180 text-fuchsia-800" : ""}`} />
                 </div>
               )}
+
+              {/* THIS IS WHAT WAS MISSING: The actual dropdown menu for desktop */}
+              <AnimatePresence>
+                {activeDropdown === index && !item.href && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-full left-[-20px] w-56 bg-white border border-slate-100 rounded-2xl shadow-2xl shadow-indigo-100/50 overflow-hidden py-3"
+                  >
+                    {item.links.map((link) => (
+                      <a
+                        key={link.name}
+                        href={link.href}
+                        onClick={() => setActiveDropdown(null)}
+                        className="block px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-fuchsia-800 hover:bg-slate-50 transition-all"
+                      >
+                        {link.name}
+                      </a>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           ))}
         </nav>
@@ -91,16 +126,16 @@ const Navbar = () => {
         {/* Desktop Buttons */}
         <div className="hidden md:flex items-center gap-6">
           <div className="flex gap-5 border-r border-slate-100 pr-6">
-            <a href="https://github.com/susb47" className="text-slate-400 hover:text-fuchsia-800"><Github size={20} /></a>
-            <a href="https://www.linkedin.com/in/susmoybiswas47" className="text-slate-400 hover:text-fuchsia-800"><Linkedin size={20} /></a>
+            <a href="https://github.com/susb47" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-fuchsia-800"><Github size={20} /></a>
+            <a href="https://www.linkedin.com/in/susmoybiswas47" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-fuchsia-800"><Linkedin size={20} /></a>
           </div>
-          <a href={resumeFile} download className="flex items-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest">
+          <a href={resumeFile} download className="flex items-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-fuchsia-800 transition-colors">
             <Download size={16} strokeWidth={3} color="#ffffff" /> 
             <span style={{ color: "#ffffff" }}>Resume</span>
           </a>
         </div>
 
-        {/* EXPLICITLY CLEANED HAMBURGER BUTTON */}
+        {/* Mobile Toggle Button */}
         <button 
           className="xl:hidden z-[110] p-2 bg-transparent border-none outline-none shadow-none hover:bg-slate-50 rounded-lg flex items-center justify-center transition-colors" 
           onClick={() => setIsOpen(!isOpen)}
@@ -115,6 +150,7 @@ const Navbar = () => {
         {isOpen && (
           <motion.div 
             initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }}
+            transition={{ type: "spring", damping: 30, stiffness: 300 }}
             className="xl:hidden fixed inset-0 w-full h-screen z-[105] flex flex-col"
             style={{ backgroundColor: "#ffffff", color: "#0f172a" }}
           >
@@ -138,24 +174,32 @@ const Navbar = () => {
                         style={{ color: mobileExpanded === index ? "#86198f" : "#0f172a", backgroundColor: "transparent" }}
                       >
                         <span>{item.title}</span>
-                        <ChevronDown size={28} color={mobileExpanded === index ? "#86198f" : "#cbd5e1"} />
+                        <ChevronDown size={28} color={mobileExpanded === index ? "#86198f" : "#cbd5e1"} className={`transition-transform duration-300 ${mobileExpanded === index ? "rotate-180" : ""}`} />
                       </button>
                       
-                      {mobileExpanded === index && (
-                        <div className="flex flex-col gap-4 mt-4 ml-4 pl-6" style={{ borderLeft: "2px solid #f1f5f9", backgroundColor: "#ffffff" }}>
-                          {item.links.map((link) => (
-                            <a 
-                              key={link.name} 
-                              href={link.href} 
-                              onClick={() => setIsOpen(false)} 
-                              className="text-xl font-bold"
-                              style={{ color: "#94a3b8", textDecoration: "none" }}
-                            >
-                              {link.name}
-                            </a>
-                          ))}
-                        </div>
-                      )}
+                      <AnimatePresence>
+                        {mobileExpanded === index && (
+                          <motion.div 
+                            initial={{ height: 0, opacity: 0 }} 
+                            animate={{ height: "auto", opacity: 1 }} 
+                            exit={{ height: 0, opacity: 0 }}
+                            className="flex flex-col gap-4 mt-4 ml-4 pl-6 overflow-hidden" 
+                            style={{ borderLeft: "2px solid #f1f5f9", backgroundColor: "#ffffff" }}
+                          >
+                            {item.links.map((link) => (
+                              <a 
+                                key={link.name} 
+                                href={link.href} 
+                                onClick={() => setIsOpen(false)} 
+                                className="text-xl font-bold py-1 hover:text-fuchsia-800 transition-colors"
+                                style={{ color: "#94a3b8", textDecoration: "none" }}
+                              >
+                                {link.name}
+                              </a>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
                   )}
                 </div>
@@ -171,7 +215,7 @@ const Navbar = () => {
               <a 
                 href={resumeFile} 
                 download 
-                className="w-full py-5 rounded-2xl font-black uppercase text-center shadow-lg"
+                className="w-full py-5 rounded-2xl font-black uppercase text-center shadow-lg hover:opacity-90 transition-opacity"
                 style={{ backgroundColor: "#0f172a", color: "#ffffff", textDecoration: "none" }}
               >
                 Download Resume
