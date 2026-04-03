@@ -51,10 +51,16 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "unset";
+  }, [isOpen]);
+
   return (
     <header 
       className={`fixed top-0 w-full z-[100] transition-all duration-500 ${
-        scrolled ? "bg-white/80 backdrop-blur-md shadow-sm border-b border-slate-100 py-3" : "bg-white py-5"
+        scrolled ? "bg-white/90 backdrop-blur-md shadow-sm border-b border-slate-100 py-3" : "bg-white py-5"
       }`}
     >
       <div className="container mx-auto px-6 max-w-7xl flex items-center justify-between">
@@ -120,41 +126,29 @@ const Navbar = () => {
         {/* Right Side Tools */}
         <div className="hidden md:flex items-center gap-6">
           <div className="flex gap-5 border-r border-slate-100 pr-6">
-            <a 
-              href="https://github.com/susb47" 
-              target="_blank" 
-              rel="noreferrer" 
-              className="text-slate-400 hover:text-fuchsia-800 transition-all hover:scale-110"
-            >
-              <Github size={20} />
-            </a>
-            <a 
-              href="https://www.linkedin.com/in/susmoybiswas47" 
-              target="_blank" 
-              rel="noreferrer" 
-              className="text-slate-400 hover:text-fuchsia-800 transition-all hover:scale-110"
-            >
-              <Linkedin size={20} />
-            </a>
+            <a href="https://github.com/susb47" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-fuchsia-800 transition-all hover:scale-110"><Github size={20} /></a>
+            <a href="https://www.linkedin.com/in/susmoybiswas47" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-fuchsia-800 transition-all hover:scale-110"><Linkedin size={20} /></a>
           </div>
-          
           <a 
             href={resumeFile}
             download="Susmoy_Biswas_Resume.pdf"
-            className="flex items-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-fuchsia-800 transition-all shadow-xl shadow-indigo-100/40 hover:-translate-y-1 active:translate-y-0"
+            className="flex items-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-fuchsia-800 transition-all shadow-xl shadow-indigo-100"
           >
             <Download size={16} strokeWidth={3} className="text-white" />
             <span className="text-white">Resume</span>
           </a>
         </div>
 
-        {/* Mobile Toggle */}
-        <button className="xl:hidden text-slate-900 z-[110] p-2" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
+        {/* Mobile Toggle Button */}
+        <button 
+          className="xl:hidden text-slate-900 z-[110] p-2 hover:bg-slate-50 rounded-xl transition-colors"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {isOpen ? <X size={28} className="text-fuchsia-800" /> : <Menu size={28} />}
         </button>
       </div>
 
-      {/* MOBILE MENU (Full-screen Slide) */}
+      {/* MOBILE MENU (Slide-in from Right) */}
       <AnimatePresence>
         {isOpen && (
           <motion.div 
@@ -164,42 +158,44 @@ const Navbar = () => {
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
             className="xl:hidden fixed inset-0 w-full h-screen bg-white z-[105] flex flex-col"
           >
-            <div className="flex-1 overflow-y-auto px-8 pt-32 pb-10">
+            {/* Nav Content */}
+            <div className="flex-1 overflow-y-auto px-6 pt-32 pb-10 no-scrollbar">
               {navStructure.map((item, index) => (
-                <div key={item.title} className="mb-6">
+                <div key={item.title} className="mb-4">
                   {item.href ? (
                     <a 
                       href={item.href} 
                       onClick={() => setIsOpen(false)} 
-                      className="text-4xl font-black text-slate-900 uppercase tracking-tighter"
+                      className="block text-3xl font-black text-slate-900 uppercase tracking-tighter py-2 border-b border-slate-50 hover:text-fuchsia-800"
                     >
                       {item.title}
                     </a>
                   ) : (
-                    <div>
+                    <div className="border-b border-slate-50">
                       <button 
                         onClick={() => setMobileExpanded(mobileExpanded === index ? null : index)}
-                        className="w-full flex items-center justify-between text-4xl font-black text-slate-900 uppercase tracking-tighter"
+                        className="w-full flex items-center justify-between text-3xl font-black text-slate-900 uppercase tracking-tighter py-3"
                       >
-                        {item.title}
-                        <ChevronDown size={32} className={`transition-transform duration-300 ${mobileExpanded === index ? "rotate-180 text-fuchsia-800" : "text-slate-300"}`} />
+                        <span className={mobileExpanded === index ? "text-fuchsia-800" : ""}>{item.title}</span>
+                        <ChevronDown size={28} className={`transition-transform duration-300 ${mobileExpanded === index ? "rotate-180 text-fuchsia-800" : "text-slate-300"}`} />
                       </button>
+                      
                       <AnimatePresence>
                         {mobileExpanded === index && (
                           <motion.div 
                             initial={{ height: 0, opacity: 0 }} 
                             animate={{ height: "auto", opacity: 1 }} 
                             exit={{ height: 0, opacity: 0 }}
-                            className="overflow-hidden flex flex-col gap-4 mt-6 ml-4 border-l-2 border-slate-100 pl-6"
+                            className="overflow-hidden flex flex-col gap-4 mb-6 ml-4"
                           >
                             {item.links.map((link) => (
                               <a 
                                 key={link.name} 
                                 href={link.href} 
                                 onClick={() => setIsOpen(false)} 
-                                className="text-xl font-bold text-slate-400 hover:text-fuchsia-800 lowercase"
+                                className="text-lg font-bold text-slate-400 hover:text-fuchsia-800 border-l-2 border-slate-100 pl-4 transition-colors"
                               >
-                                / {link.name}
+                                {link.name}
                               </a>
                             ))}
                           </motion.div>
@@ -211,15 +207,16 @@ const Navbar = () => {
               ))}
             </div>
             
-            <div className="p-8 bg-slate-50 border-t border-slate-100 flex flex-col gap-8">
+            {/* Bottom Fixed Footer for Mobile */}
+            <div className="p-8 bg-slate-50 border-t border-slate-100 flex flex-col gap-6">
               <div className="flex justify-center gap-12">
-                 <a href="https://github.com/susb47" target="_blank" rel="noreferrer" className="text-slate-400 scale-125 hover:text-fuchsia-800 transition-colors"><Github /></a>
-                 <a href="https://www.linkedin.com/in/susmoybiswas47" target="_blank" rel="noreferrer" className="text-slate-400 scale-125 hover:text-fuchsia-800 transition-colors"><Linkedin /></a>
+                 <a href="https://github.com/susb47" className="text-slate-400 hover:text-fuchsia-800 transition-colors"><Github size={28} /></a>
+                 <a href="https://www.linkedin.com/in/susmoybiswas47" className="text-slate-400 hover:text-fuchsia-800 transition-colors"><Linkedin size={28} /></a>
               </div>
               <a 
                 href={resumeFile} 
                 download 
-                className="w-full bg-slate-900 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-center shadow-xl shadow-slate-200"
+                className="w-full bg-slate-900 text-white py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-center shadow-xl shadow-slate-200"
               >
                 Download Resume
               </a>
