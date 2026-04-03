@@ -51,23 +51,17 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Prevent body scroll when mobile menu is open
-  useEffect(() => {
-    if (isOpen) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "unset";
-  }, [isOpen]);
-
   return (
     <header 
-      className={`fixed top-0 w-full z-[100] transition-all duration-500 ${
-        scrolled ? "bg-white/90 backdrop-blur-md shadow-sm border-b border-slate-100 py-3" : "bg-white py-5"
+      className={`fixed top-0 w-full z-[100] transition-all duration-300 ${
+        scrolled ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100 py-3" : "bg-white py-5"
       }`}
     >
       <div className="container mx-auto px-6 max-w-7xl flex items-center justify-between">
         
-        {/* Logo */}
-        <a href="#" className="flex items-center gap-2 group z-[110]">
-          <div className="w-9 h-9 bg-slate-900 rounded-xl flex items-center justify-center text-white group-hover:bg-fuchsia-800 transition-colors shadow-lg shadow-indigo-100/20">
+        {/* Logo Section */}
+        <a href="#" className="flex items-center gap-2 group z-[110] bg-transparent">
+          <div className="w-9 h-9 bg-slate-900 rounded-xl flex items-center justify-center text-white group-hover:bg-fuchsia-800 transition-colors">
             <Zap size={18} fill="currentColor" />
           </div>
           <span className="text-lg font-black tracking-tighter text-slate-900 uppercase">
@@ -75,7 +69,7 @@ const Navbar = () => {
           </span>
         </a>
 
-        {/* DESKTOP NAVIGATION */}
+        {/* DESKTOP NAV */}
         <nav className="hidden xl:flex items-center gap-8">
           {navStructure.map((item, index) => (
             <div 
@@ -85,34 +79,26 @@ const Navbar = () => {
               onMouseLeave={() => setActiveDropdown(null)}
             >
               {item.href ? (
-                <a 
-                  href={item.href}
-                  className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-fuchsia-800 transition-colors py-4"
-                >
+                <a href={item.href} className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-fuchsia-800 py-4 transition-colors">
                   {item.title}
                 </a>
               ) : (
-                <div className="flex items-center gap-1 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 cursor-pointer hover:text-fuchsia-800 transition-colors py-4 group">
+                <div className="flex items-center gap-1 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 cursor-pointer hover:text-fuchsia-800 py-4 group transition-colors">
                   {item.title}
-                  <ChevronDown size={12} className={`transition-transform duration-300 ${activeDropdown === index ? "rotate-180 text-fuchsia-800" : ""}`} />
+                  <ChevronDown size={12} className={`transition-transform ${activeDropdown === index ? "rotate-180 text-fuchsia-800" : ""}`} />
                 </div>
               )}
 
               <AnimatePresence>
                 {activeDropdown === index && !item.href && (
                   <motion.div
-                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                    className="absolute top-full left-[-20px] w-56 bg-white border border-slate-100 rounded-2xl shadow-2xl shadow-indigo-100/50 overflow-hidden py-3"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    className="absolute top-full left-[-20px] w-52 bg-white border border-slate-100 rounded-2xl shadow-xl py-2"
                   >
                     {item.links.map((link) => (
-                      <a
-                        key={link.name}
-                        href={link.href}
-                        onClick={() => setActiveDropdown(null)}
-                        className="block px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-fuchsia-800 hover:bg-slate-50 transition-all"
-                      >
+                      <a key={link.name} href={link.href} className="block px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-fuchsia-800 hover:bg-slate-50">
                         {link.name}
                       </a>
                     ))}
@@ -123,78 +109,53 @@ const Navbar = () => {
           ))}
         </nav>
 
-        {/* Right Side Tools */}
+        {/* DESKTOP BUTTONS */}
         <div className="hidden md:flex items-center gap-6">
           <div className="flex gap-5 border-r border-slate-100 pr-6">
-            <a href="https://github.com/susb47" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-fuchsia-800 transition-all hover:scale-110"><Github size={20} /></a>
-            <a href="https://www.linkedin.com/in/susmoybiswas47" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-fuchsia-800 transition-all hover:scale-110"><Linkedin size={20} /></a>
+            <a href="https://github.com/susb47" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-fuchsia-800"><Github size={20} /></a>
+            <a href="https://www.linkedin.com/in/susmoybiswas47" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-fuchsia-800"><Linkedin size={20} /></a>
           </div>
-          <a 
-            href={resumeFile}
-            download="Susmoy_Biswas_Resume.pdf"
-            className="flex items-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-fuchsia-800 transition-all shadow-xl shadow-indigo-100"
-          >
-            <Download size={16} strokeWidth={3} className="text-white" />
-            <span className="text-white">Resume</span>
+          <a href={resumeFile} download className="flex items-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-fuchsia-800 transition-all shadow-lg shadow-indigo-100/30">
+            <Download size={16} strokeWidth={3} /> Resume
           </a>
         </div>
 
-        {/* Mobile Toggle Button */}
-        <button 
-          className="xl:hidden text-slate-900 z-[110] p-2 hover:bg-slate-50 rounded-xl transition-colors"
-          onClick={() => setIsOpen(!isOpen)}
-        >
+        {/* MOBILE TOGGLE (The X is definitely fuchsia here) */}
+        <button className="xl:hidden text-slate-900 z-[110] p-2" onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <X size={28} className="text-fuchsia-800" /> : <Menu size={28} />}
         </button>
       </div>
 
-      {/* MOBILE MENU (Slide-in from Right) */}
+      {/* MOBILE MENU - FORCED WHITE THEME */}
       <AnimatePresence>
         {isOpen && (
           <motion.div 
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
+            initial={{ x: "100%" }} 
+            animate={{ x: 0 }} 
             exit={{ x: "100%" }}
-            transition={{ type: "spring", damping: 30, stiffness: 300 }}
             className="xl:hidden fixed inset-0 w-full h-screen bg-white z-[105] flex flex-col"
           >
-            {/* Nav Content */}
-            <div className="flex-1 overflow-y-auto px-6 pt-32 pb-10 no-scrollbar">
+            <div className="flex-1 overflow-y-auto px-8 pt-32 pb-10 bg-white">
               {navStructure.map((item, index) => (
-                <div key={item.title} className="mb-4">
+                <div key={item.title} className="mb-8 bg-white">
                   {item.href ? (
-                    <a 
-                      href={item.href} 
-                      onClick={() => setIsOpen(false)} 
-                      className="block text-3xl font-black text-slate-900 uppercase tracking-tighter py-2 border-b border-slate-50 hover:text-fuchsia-800"
-                    >
+                    <a href={item.href} onClick={() => setIsOpen(false)} className="text-3xl font-black text-slate-900 uppercase tracking-tighter block hover:text-fuchsia-800">
                       {item.title}
                     </a>
                   ) : (
-                    <div className="border-b border-slate-50">
+                    <div className="bg-white">
                       <button 
                         onClick={() => setMobileExpanded(mobileExpanded === index ? null : index)}
-                        className="w-full flex items-center justify-between text-3xl font-black text-slate-900 uppercase tracking-tighter py-3"
+                        className="w-full flex items-center justify-between text-3xl font-black text-slate-900 uppercase tracking-tighter py-2"
                       >
-                        <span className={mobileExpanded === index ? "text-fuchsia-800" : ""}>{item.title}</span>
-                        <ChevronDown size={28} className={`transition-transform duration-300 ${mobileExpanded === index ? "rotate-180 text-fuchsia-800" : "text-slate-300"}`} />
+                        <span className={mobileExpanded === index ? "text-fuchsia-800" : "text-slate-900"}>{item.title}</span>
+                        <ChevronDown size={28} className={`transition-transform ${mobileExpanded === index ? "rotate-180 text-fuchsia-800" : "text-slate-300"}`} />
                       </button>
-                      
                       <AnimatePresence>
                         {mobileExpanded === index && (
-                          <motion.div 
-                            initial={{ height: 0, opacity: 0 }} 
-                            animate={{ height: "auto", opacity: 1 }} 
-                            exit={{ height: 0, opacity: 0 }}
-                            className="overflow-hidden flex flex-col gap-4 mb-6 ml-4"
-                          >
+                          <motion.div initial={{ height: 0 }} animate={{ height: "auto" }} className="flex flex-col gap-4 mt-4 ml-4 overflow-hidden border-l-2 border-slate-100 pl-6 bg-white">
                             {item.links.map((link) => (
-                              <a 
-                                key={link.name} 
-                                href={link.href} 
-                                onClick={() => setIsOpen(false)} 
-                                className="text-lg font-bold text-slate-400 hover:text-fuchsia-800 border-l-2 border-slate-100 pl-4 transition-colors"
-                              >
+                              <a key={link.name} href={link.href} onClick={() => setIsOpen(false)} className="text-lg font-bold text-slate-400 hover:text-fuchsia-800">
                                 {link.name}
                               </a>
                             ))}
@@ -207,17 +168,13 @@ const Navbar = () => {
               ))}
             </div>
             
-            {/* Bottom Fixed Footer for Mobile */}
+            {/* Mobile Footer Area */}
             <div className="p-8 bg-slate-50 border-t border-slate-100 flex flex-col gap-6">
-              <div className="flex justify-center gap-12">
-                 <a href="https://github.com/susb47" className="text-slate-400 hover:text-fuchsia-800 transition-colors"><Github size={28} /></a>
-                 <a href="https://www.linkedin.com/in/susmoybiswas47" className="text-slate-400 hover:text-fuchsia-800 transition-colors"><Linkedin size={28} /></a>
+              <div className="flex justify-center gap-12 bg-transparent">
+                 <a href="https://github.com/susb47" className="text-slate-400 scale-125 hover:text-fuchsia-800"><Github /></a>
+                 <a href="https://www.linkedin.com/in/susmoybiswas47" className="text-slate-400 scale-125 hover:text-fuchsia-800"><Linkedin /></a>
               </div>
-              <a 
-                href={resumeFile} 
-                download 
-                className="w-full bg-slate-900 text-white py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-center shadow-xl shadow-slate-200"
-              >
+              <a href={resumeFile} download className="w-full bg-slate-900 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-center shadow-lg">
                 Download Resume
               </a>
             </div>
