@@ -1,185 +1,130 @@
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { 
-  Github, 
-  ExternalLink, 
-  Code2, 
-  MonitorPlay, 
-  Layout, 
-  Activity, 
-  Star 
-} from "lucide-react";
+import React from "react";
+import { motion } from "framer-motion";
+import { Code2, ExternalLink, Github, MonitorPlay, Activity, ShieldPlus, Orbit } from "lucide-react";
 
-// --- DATA: Project Portfolio ---
-const projects = [
+const projectsList = [
   {
     id: 1,
-    title: "Regex to NFA Converter",
-    summary: "Compiler-theory implementation converting regular expressions into nondeterministic finite automata.",
-    tech: ["C++", "Automata Theory"],
-    category: "Theory & Systems",
-    link: "https://github.com/susb47/regex-to-nfa-converter",
-    icon: <Code2 size={40} className="text-blue-400" />,
-    featured: false
+    title: "Casual Bio Twins Simulation",
+    description: "An interactive simulation framework modeling biological twins for medical and causal inference research.",
+    icon: <Activity />,
+    tags: ["Simulation", "Causal Inference", "Healthcare AI"],
+    demoLink: "https://susb47.github.io/casual-bio-twin/", // Replace with your actual deployed link
+    githubLink: "https://github.com/susb47/casual-bio-twin",
+    highlight: true,
   },
   {
     id: 2,
-    title: "Solar System Animation",
-    summary: "Real-time 3D solar system simulation using transformation matrices and the graphics pipeline.",
-    tech: ["C++", "OpenGL", "GLUT"],
-    category: "Graphics & Simulation",
-    link: "https://github.com/susb47/cg-solar-animation",
-    icon: <MonitorPlay size={40} className="text-orange-400" />,
-    featured: false
+    title: "MedGuard UI",
+    description: "A secure, intuitive medical interface system designed for monitoring patient data and deploying AI-driven health predictions.",
+    icon: <ShieldPlus />,
+    tags: ["React", "UI/UX", "System Design"],
+    demoLink: "medguard-ui.vercel.app", // Replace with your actual deployed link
+    githubLink: "https://github.com/susb47/medguard-ui",
+    highlight: true,
   },
   {
     id: 3,
-    title: "MedGuard UI",
-    summary: "Healthcare-focused UI prototype designed for secure and user-friendly medical data interaction.",
-    tech: ["React", "Tailwind CSS"],
-    category: "Product & UI",
-    link: "https://github.com/susb47/medguard-ui",
-    demo: "https://medguard-ui.vercel.app/", // <-- Added Live Demo
-    icon: <Layout size={40} className="text-purple-400" />,
-    featured: false
+    title: "Multimodal Autism Screening",
+    description: "A comprehensive web application and backend API utilizing multimodal data streams to assist in the early detection of autism.",
+    icon: <MonitorPlay />,
+    tags: ["Web App", "API Design", "Multimodal AI"],
+    demoLink: "https://autism-thesis-app.vercel.app", 
+    githubLink: "https://github.com/susb47/autism-thesis-app",
+    highlight: true,
   },
   {
     id: 4,
-    title: "CasualBioTwin",
-    summary: "Conceptual digital twin system integrating lifestyle, biometric signals, and AI-driven health insights.",
-    tech: ["ML", "System Design", "Python"],
-    category: "Applied AI Systems",
-    link: "https://github.com/susb47/casual-bio-twin",
-    demo: "https://susb47.github.io/casual-bio-twin/", // <-- Added Live Demo
-    icon: <Activity size={40} className="text-green-500" />,
-    featured: true 
+    title: "OpenGL Solar System",
+    description: "A physics-based, 3D animated solar system simulation focusing on rendering pipelines, spatial mathematics, and real-time lighting.",
+    icon: <Orbit />,
+    tags: ["C++", "OpenGL", "Computer Graphics"],
+    githubLink: "https://github.com/susb47/cg-solar-animation",
   }
 ];
 
-const categories = ["All", "Theory & Systems", "Graphics & Simulation", "Product & UI", "Applied AI Systems"];
-
 const Projects = () => {
-  const [activeCategory, setActiveCategory] = useState("All");
-
-  const filteredProjects = activeCategory === "All" 
-    ? projects 
-    : projects.filter(p => p.category === activeCategory);
-
   return (
-    <section id="projects" className="py-24 bg-zinc-950 relative">
-      <div className="container mx-auto px-6">
+    <section id="projects" className="py-24 bg-slate-50 relative border-b border-indigo-50">
+      <div className="container mx-auto px-6 max-w-6xl">
         
         {/* Header */}
-        <div className="mb-12">
-          <h2 className="text-4xl font-bold text-white mb-4">
-            Selected <span className="text-green-500">Projects</span>
+        <div className="mb-16 text-center max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 flex items-center justify-center gap-3">
+            <Code2 className="text-fuchsia-800" /> 
+            Featured <span className="text-fuchsia-800">Projects</span>
           </h2>
-          <p className="text-zinc-400 max-w-2xl">
-            From theoretical computer science to applied AI systems and production-grade interfaces.
+          <p className="text-slate-600 text-lg">
+            Systems, simulations, and applications built at the intersection of AI and software engineering.
           </p>
         </div>
 
-        {/* Filter Tabs */}
-        <div className="flex flex-wrap gap-3 mb-10">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 rounded-lg text-xs md:text-sm font-medium transition-all duration-300 border ${
-                activeCategory === cat
-                  ? "bg-green-500 text-black border-green-500"
-                  : "bg-zinc-900 text-zinc-400 border-zinc-800 hover:border-green-500/50 hover:text-green-400"
+        {/* Projects Grid - Optimized for 4 items (2x2) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          {projectsList.map((project, index) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+              whileHover={{ y: -6 }}
+              className={`bg-white rounded-2xl p-6 flex flex-col h-full shadow-sm hover:shadow-md transition-all group relative overflow-hidden ${
+                project.highlight ? 'border-2 border-indigo-100 hover:border-fuchsia-300' : 'border border-slate-200 hover:border-indigo-300'
               }`}
             >
-              {cat}
-            </button>
-          ))}
-        </div>
+              <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-        {/* Projects Grid */}
-        <motion.div 
-          layout
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          <AnimatePresence>
-            {filteredProjects.map((project) => (
-              <motion.div
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3 }}
-                key={project.id}
-                className={`group relative bg-zinc-900/40 border rounded-xl p-6 flex flex-col h-full hover:-translate-y-1 transition-all duration-300 ${
-                  project.featured 
-                    ? "border-green-500/50 shadow-[0_0_20px_rgba(34,197,94,0.1)]" 
-                    : "border-zinc-800 hover:border-green-500/30"
-                }`}
-              >
-                {/* Flagship Badge */}
-                {project.featured && (
-                  <div className="absolute top-4 right-4 text-green-500 animate-pulse">
-                    <Star size={20} fill="currentColor" />
-                  </div>
-                )}
-
-                {/* Icon Thumbnail */}
-                <div className="mb-6 p-4 bg-zinc-950 rounded-lg w-fit border border-zinc-800 group-hover:border-green-500/20 transition-colors">
+              <div className="flex items-start gap-4 mb-4 relative z-10">
+                <div className={`p-3 rounded-xl shrink-0 transition-transform group-hover:scale-110 ${
+                  project.highlight ? 'bg-fuchsia-50 text-fuchsia-700' : 'bg-indigo-50 text-indigo-600'
+                }`}>
                   {project.icon}
                 </div>
+                <h3 className="text-xl font-bold text-slate-800 group-hover:text-fuchsia-800 transition-colors leading-tight">
+                  {project.title}
+                </h3>
+              </div>
 
-                {/* Content */}
-                <div className="mb-4">
-                  <h3 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
-                    {project.title}
-                  </h3>
-                  <p className="text-zinc-400 text-sm leading-relaxed">
-                    {project.summary}
-                  </p>
-                </div>
+              <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-1 relative z-10">
+                {project.description}
+              </p>
 
-                {/* Tech Stack Pills */}
-                <div className="flex flex-wrap gap-2 mt-auto mb-6">
-                  {project.tech.map((t, i) => (
-                    <span key={i} className="px-2 py-1 bg-zinc-800/50 text-zinc-300 text-xs rounded border border-zinc-700/50">
-                      {t}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Links Footer (Updated for Demos) */}
-                <div className="pt-4 border-t border-zinc-800 flex items-center justify-between">
-                  <span className="text-xs text-zinc-500 uppercase tracking-wider font-bold">
-                    {project.category}
+              <div className="flex flex-wrap gap-2 mb-6 relative z-10">
+                {project.tags.map(tag => (
+                  <span key={tag} className="px-2.5 py-1 bg-slate-50 text-slate-500 text-xs font-semibold rounded border border-slate-200 group-hover:border-slate-300 transition-colors">
+                    {tag}
                   </span>
-                  
-                  <div className="flex gap-4">
-                    {/* Render Demo Button if link exists */}
-                    {project.demo && (
-                      <a 
-                        href={project.demo} 
-                        target="_blank" 
-                        rel="noreferrer"
-                        className="flex items-center gap-2 text-sm font-medium text-zinc-300 hover:text-green-400 transition-colors"
-                      >
-                        <ExternalLink size={16} /> Demo
-                      </a>
-                    )}
-                    
-                    <a 
-                      href={project.link} 
-                      target="_blank" 
-                      rel="noreferrer"
-                      className="flex items-center gap-2 text-sm font-medium text-white hover:text-green-400 transition-colors"
-                    >
-                      <Github size={18} /> Code
-                    </a>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+                ))}
+              </div>
+
+              <div className="flex items-center gap-3 pt-4 border-t border-slate-100 relative z-10 mt-auto">
+                {project.demoLink && project.demoLink !== "#" && (
+                  <a 
+                    href={project.demoLink} 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="flex-1 flex items-center justify-center gap-2 bg-fuchsia-50 text-fuchsia-800 border border-fuchsia-100 px-4 py-2 rounded-lg text-sm font-bold hover:bg-fuchsia-800 hover:text-white transition-colors"
+                  >
+                    <ExternalLink size={16} /> Live Demo
+                  </a>
+                )}
+                <a 
+                  href={project.githubLink} 
+                  target="_blank" 
+                  rel="noreferrer"
+                  className={`flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-bold border transition-colors ${
+                    project.demoLink && project.demoLink !== "#"
+                      ? 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50 hover:text-slate-900 w-auto' 
+                      : 'bg-white text-slate-600 border-slate-200 hover:bg-indigo-50 hover:text-indigo-700 hover:border-indigo-200 flex-1'
+                  }`}
+                >
+                  <Github size={16} /> Code
+                </a>
+              </div>
+            </motion.div>
+          ))}
+        </div>
 
       </div>
     </section>
