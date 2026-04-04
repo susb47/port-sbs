@@ -120,13 +120,13 @@ const Thesis = () => {
               <ExternalLink size={18} /> Launch Simulator
             </a>
             
-            {/* Secondary Button */}
+            {/* Secondary Button 
             <a 
               href="#research" 
               className="flex items-center justify-center gap-2 bg-white text-slate-600 border-2 border-slate-200 px-8 py-3.5 rounded-xl font-bold hover:bg-slate-50 hover:text-slate-900 hover:-translate-y-1 transition-all whitespace-nowrap"
             >
               Read Paper <ArrowRight size={18} />
-            </a>
+            </a> */}
           </div>
         </motion.div>
 
