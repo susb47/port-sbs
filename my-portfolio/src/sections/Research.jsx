@@ -31,7 +31,7 @@ const papers = [
     venue: "ICMLA 2025 (IEEE)",
     status: "Published",
     category: "Medical AI",
-    ieeeLink: "https://conferences.computer.org/icmlapub25/pdfs/ICMLA2025-4ubXnJyWd3Fugefo3XYLVQ/598000b151/598000b151.pdf",
+    ieeeLink: "https://ieeexplore.ieee.org/document/11471335",
     tags: ["Few-Shot", "XAI", "Medical Imaging"]
   },
   {
