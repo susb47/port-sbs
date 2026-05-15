@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Microscope, BookOpen, Fingerprint, Send, Sparkles } from "lucide-react";
-import profileImg from "../assets/susmoy.jpg"; 
+import profileImg from "../assets/susmoy.png"; 
 
 const About = () => {
   return (
